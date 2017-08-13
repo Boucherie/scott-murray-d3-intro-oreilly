@@ -3,25 +3,25 @@
   <head>
     <meta charset="utf-8">
     <title>D3 Test</title>
+    <link rel="stylesheet" href="main.css">
     <script type="text/javascript" src="d3/d3.js"></script>
+
   </head>
   <body>
     <script type="text/javascript">
       var dataset = [5, 10, 15, 20, 25];
 
-      d3.select("body").selectAll("p")
+      d3.select("body").selectAll("div")
         .data(dataset)
         .enter()
-        .append("p")
-        .text(function(d) {
-          return d;
-        }).style("color", function(d) {
-          if (d > 15) {   //Threshold of 15
-              return "red";
-          } else {
-              return "black";
-          }
-      });
+        // .text(function(d) {
+        //   return d;
+        // });
+        .append("div")
+        .attr("class", "bar")
+        .style("height", function(d) {
+          return d + "px";
+        });
 
     </script>
   </body>
