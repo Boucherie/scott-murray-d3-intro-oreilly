@@ -13,25 +13,171 @@
       //           14, 11, 22, 29, 11, 13, 12, 17, 18, 10,
       //           24, 18, 25, 9, 3 ];
 
+      //random dataset
       var dataset = [];
-      for (var i = 0; i < 10; i++) {
+      for (var i = 0; i < 15; i++) {
         var newNumber = Math.round(Math.random() * 30);
         dataset.push(newNumber);
       }
+      //regular dataset
+      var dataset5 = [5, 10, 15, 20 ,25];
 
-      d3.select("body").selectAll("div")
+      var w = 500;
+      var h = 250;
+      var barPadding = 1;
+      //create svg element
+      var svg = d3.select("body")
+        .append("svg")
+        .attr("width", w)
+        .attr("height", h);
+
+      //add rect's to svg
+      svg.selectAll("rect")
         .data(dataset)
         .enter()
-        // .text(function(d) {
-        //   return d;
-        // });
-        .append("div")
-        .attr("class", "bar")
-        .style("height", function(d) {
-          var barHeight = d * 5;
-          return barHeight + "px";
+        .append("rect")
+        .attr("x", function(d, i) {
+          // return i * 21; //bar width of 20 plus 1 for padding
+          return i * (w / dataset.length); //x now tied to width of the svg width
+        })
+        .attr("width", w / dataset.length - barPadding) // bars are alway equal width across svg space
+        .attr("y", function(d) {
+          return h - d;  //Height minus data value
+            })
+        .attr("height", function(d) {
+          return d;  //Just the data value
+        })
+        .attr("fill", function(d) {
+          return "rgb(0, 0, " + (d * 10) + ")";
         });
 
+      svg.selectAll("text")
+        .data(dataset)
+        .enter()
+        .append("text")
+        .text(function(d) {
+          return d;
+        )}
+        .attr("x", function(d, i) {
+          return i * (w / dataset.length);
+        })
+        .attr("width", w / dataset.length)
+        .attr("y", function(d) {
+          return h - d;  //Height minus data value
+        })
+        .attr("height", function(d) {
+          return d;  //Just the data value
+        });
+
+
+      //
+      // d3.select("body").selectAll("div")
+      //   .data(dataset)
+      //   .enter()
+      //   .append("div")
+      //   .attr("class", "bar")
+      //   .style("height", function(d) {
+      //     var barHeight = d * 5;
+      //     return barHeight + "px";
+      //   });
+
+
+
+      //learning to make circles
+
+      var jsonCircles = [
+        { "x_axis": 30, "y_axis": 30, "radius": 20, "color" : "green" },
+        { "x_axis": 70, "y_axis": 70, "radius": 20, "color" : "purple"},
+        { "x_axis": 110, "y_axis": 100, "radius": 20, "color" : "red"}];
+
+      // drawing svgs
+//---------------------------------------------------
+      //width and height
+      var w = 500
+      var h = 75
+      var svg = d3.select("body")
+                  .append("svg")
+                  .attr("width", w)
+                  .attr("height", h);
+
+      var circles2 = svg.selectAll("circle")
+        .data("dataset5")
+        .enter()
+        .append("circle");
+
+        var circleAttributes = circles2
+        .attr("cx", function(d, i) {return (i * 50) + 25;})
+        .attr("cy", h/2)
+        .attr("r", function(d) {return d;})
+        .attr("fill", "yellow")
+        .attr("stroke", "orange")
+        .attr("stroke-width", function(d) {
+          return d/2;
+        });
+
+//--------------------------------------------------
+      // An SVG Primer
+      var svgContainer = d3.select("body")
+        .append("svg")
+        .attr("width", "200")
+        .attr("height", "200");
+
+      var circles = svgContainer.selectAll("circle")
+        .data(jsonCircles)
+        .enter()
+        .append("circle");
+
+      var circleAttributes = circles
+        .attr("cx", function (d) {return d.x_axis;})
+        .attr("cy", function (d) {return d.y_axis;})
+        .attr("r", function (d) {return d.radius;})
+        .style("fill", function (d) {return d.color;});
+
+        // the simplified version
+      var svgContainer2 = d3.select("body")
+        .append("svg")
+        .attr("width", "200")
+        .attr("height", "200");
+
+      var circle2 = svgContainer2
+        .append("circle")
+        .attr("cx", 30)
+        .attr("cy", 30)
+        .attr("r", 20);
+
     </script>
+
+
+
+   <svg width="250" height="50">
+    <circle cx="25" cy="25" r="20" fill="rgba(128, 0, 128, 1.0)"/>
+    <circle cx="50" cy="25" r="20" fill="rgba(0, 0, 255, 0.75)"/>
+    <circle cx="75" cy="25" r="20" fill="rgba(0, 255, 0, 0.5)"/>
+    <circle cx="100" cy="25" r="20" fill="rgba(255, 255, 0, 0.25)"/>
+    <circle cx="125" cy="25" r="20" fill="rgba(255, 0, 0, 0.1)"/>
+
+    </svg>
+    <svg width="250" height="50">
+      <circle cx="25" cy="25" r="20"
+              fill="rgba(128, 0, 128, 0.75)"
+              stroke="rgba(0, 255, 0, 0.25)" stroke-width="10"/>
+      <circle cx="65" cy="25" r="20"
+              fill="rgba(128, 0, 128, 0.75)"
+              stroke="rgba(0, 255, 0, 0.25)" stroke-width="10"
+              opacity="0.5"/>
+      <circle cx="105" cy="25" r="20"
+              fill="rgba(128, 0, 128, 0.75)"
+              stroke="rgba(0, 255, 0, 0.25)" stroke-width="10"
+              opacity="0.2"/>
+    </svg>
+    <!-- <svg width="500" height="250">
+      <ellipse cx="250" cy="25" rx="100" ry="25" fill="purple"/>
+    </svg>
+    <svg width="500" height="100">
+      <line x1="0" y1="0" x2="500" y2="50" stroke="black"/>
+    </svg>
+    <svg width="250" height="50">
+      <text x="250" y="25">Easy-peasy</text> -->
+    </svg>
   </body>
 </html>
