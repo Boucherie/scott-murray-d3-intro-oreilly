@@ -31,6 +31,7 @@
         .attr("width", w)
         .attr("height", h);
 
+
       //add rect's to svg
       svg.selectAll("rect")
         .data(dataset)
@@ -50,6 +51,7 @@
         .attr("fill", function(d) {
           return "rgb(0, 0, " + (d * 10) + ")";
         });
+
 
 
       //
@@ -129,7 +131,14 @@
         .attr("font-size", "11px")
         .attr("fill", "red");
 
+      var xAxis = d3.svg.axis()
+        .scale(xScale)
+        .orient("bottom");
 
+      svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(0," + (h - padding) + ")")
+        .call(xAxis);
 
 
       //learning to make circles
