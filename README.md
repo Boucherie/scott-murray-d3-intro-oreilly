@@ -4,7 +4,8 @@ Some reference from dashingd3.js and other alignedleft.com also used. This proje
 
 The tutorial concludes with:
 - an svg bar chart (randomized dataset)
-- an svg scatterplot (randomized dataset), with scaled axes,
+- an svg scatterplot (randomized dataset), with scaled axes, points scaled to values, accompanying data labels (commented out but left intact for reference purposes)
+- a number of exercises designed to familiarize the user with adding SVG objects to a page
 
 ![SVG Scatterplot](assets/scatterset_plot.png)
 
